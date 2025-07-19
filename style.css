@@ -1,0 +1,84 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	background-color: AntiqueWhite;
+	font-family: "Roboto", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 500;
+	font-style: normal;
+	font-variation-settings: "wdth" 100;
+	font-size: min(60px, 10vw);
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	max-width: 1024px;
+	height: 100%;
+	margin: 0 auto;
+}
+
+p {
+	margin: 0;
+	padding: 0 10%;
+	text-align: center;
+}
+
+li {
+	padding: 0 10%;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	list-style-type: none;
+}
+
+.content {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.button-container {
+	flex-basis: 10%;
+	display: flex;
+}
+
+button {
+	height: 100%;
+	border: none;
+	flex-basis: 50%;
+	flex-grow: 1;
+	font-family: "Roboto", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 500;
+	font-style: normal;
+	font-variation-settings: "wdth" 100;
+	font-size: 100%;
+	background-color: NavajoWhite;
+}
+
+.word {
+	font-size: 150%;
+}
+
+.translation {
+	font-style: italic;
+}
+
+.played-word {
+	border-style: solid;
+	border-width: .02em .02em 0 .02em;
+}
+
+.played-word:last-child {
+	border-width: .02em;
+}
+
+.fail {
+	background-color: LightSalmon;
+}
