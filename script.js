@@ -49,7 +49,7 @@ const app = {
 				</div>
 				<div id="word-container" class="content"></div>
 				<div class="button-container">
-					<button id="success" type="button">Next</button>
+					<button id="success" class="success" type="button">Next</button>
 					<button id="fail" class="fail" type="button">Skip</button>
 				</div>
 			</main>

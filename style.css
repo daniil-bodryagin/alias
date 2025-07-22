@@ -105,6 +105,10 @@ button {
 	border-width: .02em;
 }
 
+.success {
+	background-color: LightGreen;
+}
+
 .fail {
 	background-color: LightSalmon;
 }
