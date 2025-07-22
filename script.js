@@ -1,5 +1,6 @@
 const app = {
 	roundDuration: 90,
+	remainingTime: 90,
 	words: null,
 	currentWordData: null,
 	playedWords: [],
@@ -34,6 +35,12 @@ const app = {
 		document.body.innerHTML= '';
 		document.body.insertAdjacentHTML('afterbegin', `
 			<main>
+				<div class="statusbar">
+					<div class="timer">
+						<span>Time: </span>
+						<span id="time-indicator">${app.remainingTime}</span>
+					</div>
+				</div>
 				<div id="word-container" class="content"></div>
 				<div class="button-container">
 					<button id="success" type="button">Next</button>
@@ -41,6 +48,7 @@ const app = {
 				</div>
 			</main>
 		`);
+		const timeIndicator = document.querySelector('#time-indicator');
 		const wordContainer = document.querySelector('#word-container');
 		const successButton = document.querySelector('#success');
 		const failButton = document.querySelector('#fail');
@@ -52,8 +60,17 @@ const app = {
 			app.logWord(false);
 			app.showWord(wordContainer);
 		};
-		const timer = setTimeout(() => {app.changeButtons(successButton, failButton)}, app.roundDuration * 1000);
+		const timer = setInterval(() => {app.incrementTimer(successButton, failButton, timeIndicator, timer)}, 1000);
 		app.showWord(wordContainer);
+	},
+	
+	incrementTimer(successButton, failButton, timeIndicator, timer){
+		app.remainingTime--;
+		timeIndicator.innerText = app.remainingTime;
+		if (app.remainingTime < 1) {
+			clearInterval(timer);
+			app.changeButtons(successButton, failButton);
+		}
 	},
 	
 	changeButtons(successButton, failButton){
@@ -119,6 +136,7 @@ const app = {
 	reset() {
 		app.currentWordData = null;
 		app.playedWords.length = 0;
+		app.remainingTime = app.roundDuration;
 	}	
 }
 

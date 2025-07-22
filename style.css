@@ -36,6 +36,18 @@ ul {
 	list-style-type: none;
 }
 
+.statusbar {
+	flex-basis: 10vh;
+	display: flex;
+	flex-wrap: wrap;
+	align-content: center;
+	background-color: NavajoWhite;
+}
+
+.timer {
+	padding: 0 .5em;
+}
+
 .content {
 	flex-grow: 1;
 	display: flex;
@@ -44,7 +56,7 @@ ul {
 }
 
 .button-container {
-	flex-basis: 10%;
+	flex-basis: 10vh;
 	display: flex;
 }
 
