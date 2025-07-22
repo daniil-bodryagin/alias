@@ -45,6 +45,7 @@ const app = {
 						<span>Score: </span>
 						<span id="score-indicator">${app.score}</span>
 					</div>
+					<div id="quit-button" class="quit">×</div>
 				</div>
 				<div id="word-container" class="content"></div>
 				<div class="button-container">
@@ -55,6 +56,7 @@ const app = {
 		`);
 		const timeIndicator = document.querySelector('#time-indicator');
 		const scoreIndicator = document.querySelector('#score-indicator');
+		const quitButton = document.querySelector('#quit-button');
 		const wordContainer = document.querySelector('#word-container');
 		const successButton = document.querySelector('#success');
 		const failButton = document.querySelector('#fail');
@@ -71,6 +73,11 @@ const app = {
 		successButton.onclick = () => buttonHandler(true);
 		failButton.onclick = () => buttonHandler(false);
 		const timer = setInterval(() => {app.incrementTimer(changeButtons, timeIndicator, timer)}, 1000);
+		quitButton.onclick = () => {
+			app.logWord(false);
+			clearInterval(timer);
+			app.showFinalScreen();
+		};
 		app.showWord(wordContainer);
 	},
 

@@ -39,9 +39,9 @@ ul {
 .statusbar {
 	flex-basis: 10vh;
 	display: flex;
-	justify-content: space-between;
 	flex-wrap: wrap;
-	align-content: center;
+	justify-content: space-between;
+	align-items: center;
 	background-color: NavajoWhite;
 }
 
@@ -49,6 +49,17 @@ ul {
 	flex-basis: 0;
 	flex-grow: 1;
 	padding: 0 .5em;
+}
+
+.quit {
+	flex-basis: 10vh;
+	align-self: stretch;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-content: center;
+	text-align: center;
+	background-color: LightSalmon;
 }
 
 .content {
