@@ -1,6 +1,7 @@
 const app = {
 	roundDuration: 90,
 	remainingTime: 90,
+	score: 0,
 	words: null,
 	currentWordData: null,
 	playedWords: [],
@@ -16,7 +17,7 @@ const app = {
 	},
 	
 	showStartScreen() {
-		document.body.innerHTML= '';
+		document.body.innerHTML = '';
 		document.body.insertAdjacentHTML('afterbegin', `
 			<main>
 				<div class="content">
@@ -32,13 +33,17 @@ const app = {
 	},
 	
 	showPlayScreen(){
-		document.body.innerHTML= '';
+		document.body.innerHTML = '';
 		document.body.insertAdjacentHTML('afterbegin', `
 			<main>
 				<div class="statusbar">
-					<div class="timer">
+					<div class="indicator">
 						<span>Time: </span>
 						<span id="time-indicator">${app.remainingTime}</span>
+					</div>
+					<div class="indicator">
+						<span>Score: </span>
+						<span id="score-indicator">${app.score}</span>
 					</div>
 				</div>
 				<div id="word-container" class="content"></div>
@@ -49,40 +54,38 @@ const app = {
 			</main>
 		`);
 		const timeIndicator = document.querySelector('#time-indicator');
+		const scoreIndicator = document.querySelector('#score-indicator');
 		const wordContainer = document.querySelector('#word-container');
 		const successButton = document.querySelector('#success');
 		const failButton = document.querySelector('#fail');
-		successButton.onclick = () => {
-			app.logWord(true);
-			app.showWord(wordContainer);
+		let finalCallback = () => app.showWord(wordContainer);
+		const buttonHandler = (success) => {
+			app.logWord(success);
+			if (success) app.incrementScore(scoreIndicator);
+			finalCallback();
 		};
-		failButton.onclick = () => {
-			app.logWord(false);
-			app.showWord(wordContainer);
-		};
-		const timer = setInterval(() => {app.incrementTimer(successButton, failButton, timeIndicator, timer)}, 1000);
+		const changeButtons = () => {
+			successButton.innerText = 'Finish';
+			finalCallback = app.showFinalScreen;
+		}
+		successButton.onclick = () => buttonHandler(true);
+		failButton.onclick = () => buttonHandler(false);
+		const timer = setInterval(() => {app.incrementTimer(changeButtons, timeIndicator, timer)}, 1000);
 		app.showWord(wordContainer);
 	},
+
+	incrementScore(scoreIndicator){
+		app.score++;
+		scoreIndicator.innerText = app.score;
+	},
 	
-	incrementTimer(successButton, failButton, timeIndicator, timer){
+	incrementTimer(changeButtons, timeIndicator, timer){
 		app.remainingTime--;
 		timeIndicator.innerText = app.remainingTime;
 		if (app.remainingTime < 1) {
 			clearInterval(timer);
-			app.changeButtons(successButton, failButton);
+			changeButtons();
 		}
-	},
-	
-	changeButtons(successButton, failButton){
-		successButton.innerText = 'Finish';
-		successButton.onclick = () => {
-			app.logWord(true);
-			app.showFinalScreen();
-		};
-		failButton.onclick = () => {
-			app.logWord(false);
-			app.showFinalScreen();
-		};
 	},
 	
 	logWord(success){
@@ -113,6 +116,12 @@ const app = {
 		document.body.innerHTML= '';
 		document.body.insertAdjacentHTML('afterbegin', `
 			<main>
+				<div class="statusbar">
+					<div class="indicator">
+						<span>Score: </span>
+						<span>${app.score}</span>
+					</div>
+				</div>
 				<div class="content">
 					<ul id="played-word-list"></ul>
 				</div>
@@ -132,10 +141,10 @@ const app = {
 		app.reset();
 	},
 	
-	
 	reset() {
 		app.currentWordData = null;
 		app.playedWords.length = 0;
+		app.score = 0;
 		app.remainingTime = app.roundDuration;
 	}	
 }
